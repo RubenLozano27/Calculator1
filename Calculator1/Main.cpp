@@ -78,7 +78,7 @@ Main::~Main()
 }
 void Main::OnButtonClicked(wxCommandEvent& evt)
 {
-	btn[evt.GetId() - 100]->Enable(false);
+	btn[evt.GetId()- 100]->Enable(false);
 	btn[evt.GetId() - 100]->Enable(true);
 	if (btn[evt.GetId() - 100] == btn[20])
 	{
@@ -93,7 +93,7 @@ void Main::OnButtonClicked(wxCommandEvent& evt)
 		decimalClick = false;
 		calcDisplay->AppendText(btn[evt.GetId() - 100]->GetLabelText());
 	}
-	else if (evt.GetId() - 100 == 19)
+	else if (evt.GetId()-100 == 19)
 	{
 		calcDisplay->Clear();
 	}
@@ -101,4 +101,6 @@ void Main::OnButtonClicked(wxCommandEvent& evt)
 	{
 		calcDisplay->AppendText(btn[evt.GetId() - 100]->GetLabelText());
 	}
+	
+	/*evt.Skip();*/
 }
