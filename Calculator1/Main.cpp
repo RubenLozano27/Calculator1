@@ -18,23 +18,9 @@ Main::Main() :wxFrame(nullptr, wxID_ANY, "DaCalculator", wxPoint(30, 30), wxSize
 	vrs->Add(hrs);
 	wxFont font(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false);
 	calcDisplay->SetFont(font);
-	btn[10] = new wxButton(this, 110, "Bin");
-	btn[11] = new wxButton(this, 111, "Hex");
-	btn[12] = new wxButton(this, 112, "Dex");
-	btn[13] = new wxButton(this, 113, "Mod");
-	btn[14] = new wxButton(this, 114, "+");
-	btn[15] = new wxButton(this, 115, "-");
-	btn[16] = new wxButton(this, 116, "*");
-	btn[17] = new wxButton(this, 117, "/");
-	btn[18] = new wxButton(this, 118,"=");
-	btn[19] = new wxButton(this, 119, "C");
-	btn[20] = new wxButton(this, 120, ".");
-	for (int i = 0; i < 10; i++)
+	for (size_t i = 0; i < 21; i++)
 	{
-		if (i == 0)
-			btn[i] = new wxButton(this, 100 + i, std::to_string(i));
-		else
-			btn[i] = new wxButton(this, 100 + i, std::to_string(i));
+		btn[i] = buttonbuilder->BuildButton(this,titles[i],100 + i);
 	}
 	for (size_t i = 0; i < 21; i++)
 	{
