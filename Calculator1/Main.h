@@ -11,6 +11,7 @@ public:
 	ButtonFactory buttonbuilder;
 	wxButton* btn[21];
 	bool decimalClick = false;
+	bool firstInput = true;
 	wxString titles[21] = { "0","1","2","3","4","5","6","7","8","9","Bin","Hex","Dex","Mod","+","-","*","/","=","C","."};
 	wxTextCtrl* calcDisplay;
 	void OnButtonClicked(wxCommandEvent& evt);

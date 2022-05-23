@@ -66,6 +66,11 @@ void Main::OnButtonClicked(wxCommandEvent& evt)
 {
 	btn[evt.GetId() - 100]->Enable(false);
 	btn[evt.GetId() - 100]->Enable(true);
+	if (firstInput)
+	{
+		firstInput = false;
+		decimalClick = true;
+	}
 	if (btn[evt.GetId() - 100] == btn[20])
 	{
 		if (!decimalClick)
