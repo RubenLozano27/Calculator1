@@ -1,12 +1,13 @@
 #pragma once
 #include"wx/wx.h"
 #include "ButtonFactory.h"
+#include "CalcProcessor.h"
+#include <vector>
 class Main :public wxFrame
 {
 public:
 	Main();
 	~Main();
-
 public:
 	ButtonFactory buttonbuilder;
 	wxButton* btn[21];

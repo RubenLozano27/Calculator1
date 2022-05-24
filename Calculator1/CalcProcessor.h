@@ -1,11 +1,12 @@
 #pragma once
 #include <bitset>
+#include "wx/string.h"
+#include <vector>
 class CalcProcessor
 {
 private:
 	CalcProcessor();
 	static CalcProcessor* _calcProcessor;
-
 public:
 	~CalcProcessor() { delete[] _calcProcessor; }
 
@@ -21,13 +22,26 @@ public:
 		}
 		return _calcProcessor;
 	}
+	void GoThroughEquations(wxString equations)
+	{
+		std::vector<wxString> parts;
+		std::vector<int> pos;
+	}
+	std::vector<int> getPosOfSigns(wxString equations)
+	{
+		std::vector<int> locations;
+		int tempPos = 0;
+		for (size_t i = 0; i < equations.size(); i++)
+		{
+			if(equations[i] == (char) "+")
+			{ 
+			
+			}
+		}
+	}
 	float Add(float num1, float num2)
 	{
 		return num1 + num2;
-	}
-	float Subtract(float num1, float num2)
-	{
-		return num1 - num2;
 	}
 	float Multiply(float num1, float num2)
 	{
@@ -38,4 +52,3 @@ public:
 		return num1 / num2;
 	}
 };
-

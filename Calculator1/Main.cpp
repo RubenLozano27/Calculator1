@@ -2,6 +2,7 @@
 wxBEGIN_EVENT_TABLE(Main, wxFrame)
 EVT_BUTTON(10001, OnButtonClicked)
 wxEND_EVENT_TABLE()
+CalcProcessor* CalcProcessor::_calcProcessor = nullptr;
 Main::Main() :wxFrame(nullptr, wxID_ANY, "DaCalculator", wxPoint(30, 30), wxSize(400, 600), wxDEFAULT_FRAME_STYLE & ~(wxRESIZE_BORDER | wxMAXIMIZE_BOX))
 {
 	wxBoxSizer* vrs = new wxBoxSizer(wxVERTICAL);
@@ -66,38 +67,41 @@ void Main::OnButtonClicked(wxCommandEvent& evt)
 {
 	btn[evt.GetId() - 100]->Enable(false);
 	btn[evt.GetId() - 100]->Enable(true);
-	if (firstInput)
+	if (firstInput && evt.GetId() - 100 >= 0 && evt.GetId() < 10)
 	{
 		firstInput = false;
 		decimalClick = true;
-	}
-	if (evt.GetId() - 100 > 14 && evt.GetId() - 100 < 18)
-	{
-
 	}
 	if (!firstInput)
 	{
 		if (btn[evt.GetId() - 100] == btn[20])
 		{
-			if (!decimalClick)
+			if (!decimalClick && !firstInput)
 			{
 				calcDisplay->AppendText(btn[evt.GetId() - 100]->GetLabelText());
+				decimalClick = true;
 			}
-			decimalClick = true;
 		}
-		else if (evt.GetId() - 100 > 14 && evt.GetId() - 100 < 18 && !firstInput)
+		if (evt.GetId() - 100 > 13 && evt.GetId() - 100 < 18 && !decimalClick)
 		{
-			decimalClick = false;
+			firstInput = true;
 			calcDisplay->AppendText(btn[evt.GetId() - 100]->GetLabelText());
 		}
-		else if (evt.GetId() - 100 == 19)
+		if (evt.GetId()-100 == 18)
 		{
-			calcDisplay->Clear();
+			
 		}
+	}
+	if (evt.GetId() - 100 == 19)
+	{
+		calcDisplay->Clear();
+		firstInput = true;
 	}
 	if (evt.GetId() - 100 < 10)
 	{
 		calcDisplay->AppendText(btn[evt.GetId() - 100]->GetLabelText());
+		firstInput = false;
+		decimalClick = false;
 	}
 	
 }
