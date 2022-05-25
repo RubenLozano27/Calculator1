@@ -10,10 +10,13 @@ public:
 	~Main();
 public:
 	ButtonFactory buttonbuilder;
-	wxButton* btn[21];
+	wxButton* btn[22];
 	bool decimalClick = false;
 	bool firstInput = true;
-	wxString titles[21] = { "0","1","2","3","4","5","6","7","8","9","Bin","Hex","Dex","Mod","+","-","*","/","=","C","."};
+	bool equalsClick = false;
+	wxString inputNum;
+	std::vector<wxString> listOfNums;
+	wxString titles[22] = { "0","1","2","3","4","5","6","7","8","9","Bin","Hex","Dex","Mod","+","-","*","/","=","+/-","C","."};
 	wxTextCtrl* calcDisplay;
 	void OnButtonClicked(wxCommandEvent& evt);
 
