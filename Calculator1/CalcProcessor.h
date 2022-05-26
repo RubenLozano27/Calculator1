@@ -1,13 +1,15 @@
 #pragma once
 #include <bitset>
-class CalcProcessor
+#include "IBaseCommand.h"
+#include <vector>
+class CalcProcessor : IBaseCommand
 {
 private:
 	CalcProcessor() {};
 	static CalcProcessor* _calcProcessor;
 public:
+	std::vector<> commands;
 	~CalcProcessor() { delete[] _calcProcessor; }
-
 	CalcProcessor(CalcProcessor& _calcCopy) = delete;
 
 	void operator=(CalcProcessor& _calcCopy) = delete;
@@ -19,6 +21,10 @@ public:
 			_calcProcessor = new CalcProcessor();
 		}
 		return _calcProcessor;
+	}
+	void execute()
+	{
+
 	}
 	float Add(float num1, float num2)
 	{

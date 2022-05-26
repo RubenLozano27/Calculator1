@@ -22,12 +22,14 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="ButtonFactory.h" />
     <ClInclude Include="CalcProcessor.h" />
+    <ClInclude Include="IBaseCommand.h" />
     <ClInclude Include="Main.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="ButtonFactory.cpp" />
     <ClCompile Include="CalcProcessor.cpp" />
+    <ClCompile Include="IBaseCommand.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
