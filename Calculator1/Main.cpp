@@ -73,16 +73,11 @@ void Main::OnButtonClicked(wxCommandEvent& evt)
 	CalcProcessor* processor = processor->getInstance();
 	btn[evt.GetId() - 100]->Enable(false);
 	btn[evt.GetId() - 100]->Enable(true);
-	if (firstInput && evt.GetId() - 100 >= 0 && evt.GetId()- 100 < 10)
-	{
-		firstInput = false;
-		decimalClick = true;
-	}
 	if (!firstInput)
 	{
-		if (btn[evt.GetId() - 100] == btn[21] && !equalsClick)
+		if (btn[evt.GetId() - 100] == btn[21])
 		{
-			if (!decimalClick && !firstInput)
+			if (!decimalClick && !firstInput && !numLock)
 			{
 				calcDisplay->AppendText(btn[evt.GetId() - 100]->GetLabelText());
 				decimalClick = true;
@@ -90,12 +85,13 @@ void Main::OnButtonClicked(wxCommandEvent& evt)
 		}
 		if (evt.GetId() - 100 > 13 && evt.GetId() - 100 < 18 && !decimalClick)
 		{
-			equalsClick = false;
 			firstInput = true;
-			if (inputNum != "")
+			negateClick = false;
+			if (inputNum != "" && !numLock)
 			{
 				listOfNums.push_back(inputNum);
 			}
+			numLock = false;
 			inputNum.clear();
 			listOfNums.push_back(btn[evt.GetId() - 100]->GetLabelText());
 			calcDisplay->AppendText(btn[evt.GetId() - 100]->GetLabelText());
@@ -104,13 +100,18 @@ void Main::OnButtonClicked(wxCommandEvent& evt)
 		{
 			if (listOfNums.size() > 1)
 			{
-				equalsClick = true;
-				listOfNums.push_back(inputNum);
+				if (inputNum != "")
+				{
+					listOfNums.push_back(inputNum);
+				}
+				numLock = true;
 				inputNum.clear();
 				float sum;
 				wxString sumString;
 				for (size_t i = 0; i < listOfNums.size(); i++)
 				{
+					/*union { float fval; std::uint32_t ival; };
+					fval = sum;*/
 					if (listOfNums[i] == "*")
 					{
 						sum = processor->Multiply(wxAtof(listOfNums[i - 1]), wxAtof(listOfNums[i + 1]));
@@ -146,8 +147,28 @@ void Main::OnButtonClicked(wxCommandEvent& evt)
 						listOfNums.insert(listOfNums.begin() + (i - 1), sumString);
 					}
 				}
+				if (listOfNums[0][0] != (char) "-")
+				{
+					negateClick = false;
+				}
 				calcDisplay->Clear();
 				calcDisplay->AppendText(sumString);
+			}
+		}
+		if (evt.GetId()-100 == 19)
+		{
+			if (inputNum != "")
+			{
+				listOfNums.push_back(inputNum);
+			}
+			wxString minus = "-";
+			if (listOfNums.size() > 0 && listOfNums.size() < 2 && !negateClick)
+			{
+				negateClick = true;
+				numLock = true;
+				listOfNums[0].Prepend(minus);
+				calcDisplay->Clear();
+				calcDisplay->AppendText(listOfNums[0]);
 			}
 		}
 	}
@@ -155,10 +176,11 @@ void Main::OnButtonClicked(wxCommandEvent& evt)
 	{
 		calcDisplay->Clear();
 		listOfNums.clear();
-		equalsClick = false;
+		inputNum.clear();
+		numLock = false;
 		firstInput = true;
 	}
-	if (evt.GetId() - 100 < 10 && !equalsClick)
+	if (evt.GetId() - 100 < 10 && !numLock)
 	{
 		inputNum += btn[evt.GetId() - 100]->GetLabelText();
 		calcDisplay->AppendText(btn[evt.GetId() - 100]->GetLabelText());
