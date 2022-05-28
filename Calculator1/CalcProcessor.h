@@ -1,14 +1,17 @@
 #pragma once
 #include <bitset>
 #include "IBaseCommand.h"
+#include <functional>
+#include"wx\string.h"
 #include <vector>
-class CalcProcessor : IBaseCommand
+class CalcProcessor 
 {
 private:
 	CalcProcessor() {};
 	static CalcProcessor* _calcProcessor;
+
 public:
-	std::vector<> commands;
+	std::vector<std::function<float (float,float)>> commands;
 	~CalcProcessor() { delete[] _calcProcessor; }
 	CalcProcessor(CalcProcessor& _calcCopy) = delete;
 
@@ -24,7 +27,7 @@ public:
 	}
 	void execute()
 	{
-
+	
 	}
 	float Add(float num1, float num2)
 	{
@@ -41,5 +44,19 @@ public:
 	float Divide(float num1, float num2)
 	{
 		return num1 / num2;
+	}
+	wxString binary(float num)
+	{
+		wxString binary;
+		char* bits = reinterpret_cast<char*>(&num);
+		binary = bits;
+		return binary;
+	}
+	wxString Hex(float input)
+	{
+		wxString output;
+		output.Format("%X", input);
+		
+		return output;
 	}
 };

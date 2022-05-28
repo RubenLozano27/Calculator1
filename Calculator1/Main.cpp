@@ -83,6 +83,34 @@ void Main::OnButtonClicked(wxCommandEvent& evt)
 				decimalClick = true;
 			}
 		}
+		if (evt.GetId() - 100 > 9 && evt.GetId() - 100 < 13)
+		{
+			if (inputNum != "")
+			{
+				listOfNums.push_back(inputNum);
+			}
+			if (listOfNums.size() < 2 && listOfNums.size()>0)
+			{
+				wxString resultString;
+				float resultFloat;
+				if (evt.GetId() - 100 == 10)
+				{
+					resultString = processor->binary(wxAtof(listOfNums[0]));
+					calcDisplay->Clear();
+					calcDisplay->AppendText(resultString);
+				}
+				if (evt.GetId() - 100 == 11)
+				{
+					resultString = processor->Hex(wxAtof(listOfNums[0]));
+					calcDisplay->Clear();
+					calcDisplay->AppendText(resultString);
+				}
+				if (evt.GetId() - 100 == 12)
+				{
+
+				}
+			}
+		}
 		if (evt.GetId() - 100 > 13 && evt.GetId() - 100 < 18 && !decimalClick)
 		{
 			firstInput = true;
@@ -110,8 +138,7 @@ void Main::OnButtonClicked(wxCommandEvent& evt)
 				wxString sumString;
 				for (size_t i = 0; i < listOfNums.size(); i++)
 				{
-					/*union { float fval; std::uint32_t ival; };
-					fval = sum;*/
+	
 					if (listOfNums[i] == "*")
 					{
 						sum = processor->Multiply(wxAtof(listOfNums[i - 1]), wxAtof(listOfNums[i + 1]));
